@@ -9,7 +9,7 @@
 <html>
   <head>
     <script>
-        window.location.href = "/user/login.do";
+        window.location.href = "/counter/index.do";
     </script>
   </head>
   <body>
