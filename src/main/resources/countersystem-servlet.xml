@@ -26,12 +26,18 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--<mvc:exclude-mapping path="/user/login.do"/>-->
-            <!--<mvc:exclude-mapping path="/user/index.do"/>-->
-            <!--<bean class="com.bank.imitation.interceptor.SessionInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/counter/login.do"/>
+            <mvc:exclude-mapping path="/counter/index.do"/>
+            <bean class="com.bank.imitation.interceptor.SessionInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/page/"/>
+        <property name="suffix" value=".html"/>
+    </bean>
 </beans>
