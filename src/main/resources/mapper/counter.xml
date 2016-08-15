@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bank.imitation.mapper.CounterMapper">
+    <resultMap id="counterResultMap" type="com.bank.imitation.model.Counter">
+        <result column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_pass" property="userPass"/>
+        <result column="name" property="name"/>
+        <result column="id_card" property="idCard"/>
+        <result column="phone" property="phone"/>
+        <result column="op_time" property="opTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="last_ver" property="lastVer"/>
+    </resultMap>
+
+    <select id="getByNameAndPass" resultMap="counterResultMap" parameterType="map">
+        SELECT
+            counter.id,
+            counter.user_name,
+            counter.user_pass,
+            counter.`name`,
+            counter.id_card,
+            counter.phone,
+            counter.op_time,
+            counter.create_time,
+            counter.is_valid,
+            counter.last_ver
+        FROM
+            counter
+        WHERE
+            counter.user_name = #{name} AND counter.user_pass = #{pass} AND counter.is_valid = 1
+        LIMIT 1
+    </select>
+</mapper>
