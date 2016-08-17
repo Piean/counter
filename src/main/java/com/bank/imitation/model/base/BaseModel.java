@@ -9,8 +9,8 @@ public class BaseModel{
     private String id;
     private int opTime;
     private int createTime;
-    private int isValid = 1;
-    private int lastVer = 1;
+    private int isValid;
+    private int lastVer;
 
     public String getId() {
         return id;

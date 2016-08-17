@@ -7,4 +7,8 @@ import com.bank.imitation.model.Counter;
  */
 public interface ICounterDao {
     Counter getByNameAndPass(String userName, String userPass);
+
+    int insertCounter(Counter counter);
+
+    int updateCounter(Counter counter);
 }

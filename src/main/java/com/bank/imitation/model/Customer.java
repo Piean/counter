@@ -3,19 +3,18 @@ package com.bank.imitation.model;
 import com.bank.imitation.model.base.BaseModel;
 
 /**
- * Created by mogu on 2016/8/15.
+ * Created by mogu on 2016/8/16.
  */
-public class Counter extends BaseModel{
-
+public class Customer extends BaseModel {
     private String userName;
     private String userPass;
     private String name;
     private int sex = 0;
+    private int birthday;
     private String idCard;
     private String phone;
-    private int lastLoginTime;
-    private int lastLeaveTime;
-    private int level = -1;
+    private String email;
+    private String address;
 
     public String getUserName() {
         return userName;
@@ -49,6 +48,14 @@ public class Counter extends BaseModel{
         this.sex = sex;
     }
 
+    public int getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(int birthday) {
+        this.birthday = birthday;
+    }
+
     public String getIdCard() {
         return idCard;
     }
@@ -65,27 +72,19 @@ public class Counter extends BaseModel{
         this.phone = phone;
     }
 
-    public int getLastLoginTime() {
-        return lastLoginTime;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLastLoginTime(int lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getLastLeaveTime() {
-        return lastLeaveTime;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLastLeaveTime(int lastLeaveTime) {
-        this.lastLeaveTime = lastLeaveTime;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

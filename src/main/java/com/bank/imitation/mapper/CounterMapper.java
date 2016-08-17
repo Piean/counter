@@ -10,4 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CounterMapper {
     Counter getByNameAndPass(@Param("name") String userName, @Param("pass") String userPass);
+
+    int insertCounter(Counter counter);
+
+    int updateCounter(Counter counter);
 }

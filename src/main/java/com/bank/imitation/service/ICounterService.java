@@ -1,6 +1,7 @@
 package com.bank.imitation.service;
 
 import com.bank.imitation.model.Counter;
+import com.bank.imitation.result.Result;
 
 /**
  * Created by mogu on 2016/8/15.
@@ -12,5 +13,19 @@ public interface ICounterService {
      * @param userPass 密码
      * @return counter
      */
-    Counter getByNameAndPass(String userName, String userPass);
+    Result<Counter> getByNameAndPass(String userName, String userPass);
+
+    /**
+     * 新增柜员信息
+     * @param counter
+     * @return
+     */
+    Result<Boolean> insertCounter(Counter counter);
+
+    /**
+     * 更新柜员信息
+     * @param counter
+     * @return
+     */
+    Result<Boolean> updateCounter(Counter counter);
 }

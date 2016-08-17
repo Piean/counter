@@ -6,8 +6,12 @@
         <result column="user_name" property="userName"/>
         <result column="user_pass" property="userPass"/>
         <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
         <result column="id_card" property="idCard"/>
         <result column="phone" property="phone"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="last_leave_time" property="lastLeaveTime"/>
+        <result column="level" property="level"/>
         <result column="op_time" property="opTime"/>
         <result column="create_time" property="createTime"/>
         <result column="is_valid" property="isValid"/>
@@ -19,9 +23,13 @@
             counter.id,
             counter.user_name,
             counter.user_pass,
-            counter.`name`,
+            counter.name,
+            counter.sex,
             counter.id_card,
             counter.phone,
+            counter.last_login_time,
+            counter.last_leave_time,
+            counter.level,
             counter.op_time,
             counter.create_time,
             counter.is_valid,
@@ -32,4 +40,75 @@
             counter.user_name = #{name} AND counter.user_pass = #{pass} AND counter.is_valid = 1
         LIMIT 1
     </select>
+
+    <insert id="insertCounter" parameterType="com.bank.imitation.model.Counter">
+        INSERT INTO counter
+          (
+            counter.id,
+            counter.user_name,
+            counter.user_pass,
+            counter.name,
+            counter.sex,
+            counter.id_card,
+            counter.phone,
+            counter.last_login_time,
+            counter.last_leave_time,
+            counter.level,
+            counter.op_time,
+            counter.create_time,
+            counter.is_valid,
+            counter.last_ver
+          )
+        VALUES
+          (
+            #{id},
+            #{userName},
+            #{userPass},
+            #{name},
+            #{sex},
+            #{idCard},
+            #{phone},
+            0,
+            0,
+            #{level},
+            UNIX_TIMESTAMP(NOW()),
+            UNIX_TIMESTAMP(NOW()),
+            1,
+            0
+          )
+    </insert>
+
+    <update id="updateCounter" parameterType="com.bank.imitation.model.Counter">
+        UPDATE counter SET
+            <if test="userName != null">
+                counter.user_name = #{userName},
+            </if>
+            <if test="userPass != null">
+                counter.user_pass = #{userPass},
+            </if>
+            <if test="name != null">
+                counter.name = #{name},
+            </if>
+            <if test="sex > 0">
+                counter.sex = #{sex},
+            </if>
+            <if test="idCard != null">
+                counter.id_card = #{idCard},
+            </if>
+            <if test="phone != null">
+                counter.phone = #{phone},
+            </if>
+            <if test="lastLoginTime > 0">
+                counter.last_login_time = #{lastLoginTime},
+            </if>
+            <if test="lastLeaveTime > 0">
+                counter.last_leave_time = #{lastLeaveTime},
+            </if>
+            <if test="level > -1">
+                counter.level = #{level},
+            </if>
+            counter.op_time = UNIX_TIMESTAMP(NOW()),
+            counter.last_ver = counter.last_ver + 1
+        WHERE counter.id = #{id} AND counter.is_valid = 1
+    </update>
 </mapper>

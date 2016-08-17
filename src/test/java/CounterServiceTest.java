@@ -1,4 +1,5 @@
 import com.bank.imitation.model.Counter;
+import com.bank.imitation.result.Result;
 import com.bank.imitation.service.ICounterService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,16 @@ public class CounterServiceTest {
 
     @Test
     public void testGetCounterByNameAndPass() {
-        Counter counter = counterService.getByNameAndPass("admin","admin");
+        Result<Counter> counter = counterService.getByNameAndPass("admin","admin");
         System.out.println(counter);
+    }
+
+    @Test
+    public void testInsert() {
+        Counter counter = new Counter();
+        counter.setUserName("mogu");
+        counter.setUserPass("mogu");
+        Result<Boolean> result = counterService.insertCounter(counter);
+        System.out.println(result.getModel());
     }
 }
