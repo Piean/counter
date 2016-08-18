@@ -18,6 +18,29 @@
         <result column="last_ver" property="lastVer"/>
     </resultMap>
 
+    <select id="getById" resultMap="counterResultMap" parameterType="String">
+        SELECT
+            counter.id,
+            counter.user_name,
+            counter.user_pass,
+            counter.name,
+            counter.sex,
+            counter.id_card,
+            counter.phone,
+            counter.last_login_time,
+            counter.last_leave_time,
+            counter.level,
+            counter.op_time,
+            counter.create_time,
+            counter.is_valid,
+            counter.last_ver
+        FROM
+            counter
+        WHERE
+            counter.id = #{id} AND counter.is_valid = 1
+        LIMIT 1
+    </select>
+
     <select id="getByNameAndPass" resultMap="counterResultMap" parameterType="map">
         SELECT
             counter.id,

@@ -28,6 +28,11 @@ public class CounterServiceTest {
         Counter counter = new Counter();
         counter.setUserName("mogu");
         counter.setUserPass("mogu");
+        counter.setName("蘑菇");
+        counter.setSex(1);
+        counter.setIdCard("612542199204851260");
+        counter.setPhone("15397222925");
+        counter.setLevel(1);
         Result<Boolean> result = counterService.insertCounter(counter);
         System.out.println(result.getModel());
     }

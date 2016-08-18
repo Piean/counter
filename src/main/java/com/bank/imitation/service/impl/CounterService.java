@@ -18,6 +18,20 @@ import java.util.UUID;
 public class CounterService implements ICounterService {
     @Resource
     private ICounterDao counterDao;
+
+    @Override
+    public Result<Counter> getById(String id) {
+        try {
+            Result<Counter> result = new ResultSupport<>();
+            if (StringUtils.isNotBlank(id)) {
+                result.setModel(counterDao.getById(id));
+            }
+            return result;
+        } catch (Exception e) {
+            return new ResultSupport<>("system_exception",e.getMessage());
+        }
+    }
+
     /**
      * 根据用户名和密码获取柜员用户，用于柜员登录
      *
@@ -25,23 +39,16 @@ public class CounterService implements ICounterService {
      * @param userPass 密码
      * @return counter
      */
+    @Override
     public Result<Counter> getByNameAndPass(String userName, String userPass) {
         try {
             Result<Counter> result = new ResultSupport<>();
             if (StringUtils.isNoneBlank(userName,userPass)) {
-                Counter counter = counterDao.getByNameAndPass(userName,userPass);
-                if (null != counter) {
-                    result.setModel(counter);
-                    result.setMessage("登录成功");
-                } else {
-                    result.setMessage("登录失败，用户名或密码错误");
-                }
-            } else {
-                result.setMessage("登录失败，用户名或密码为空");
+                result.setModel(counterDao.getByNameAndPass(userName,userPass));
             }
             return result;
         } catch (Exception e) {
-            return new ResultSupport<>(e.getMessage(),"登录失败，系统异常");
+            return new ResultSupport<>("system_exception",e.getMessage());
         }
     }
 
@@ -51,30 +58,38 @@ public class CounterService implements ICounterService {
      * @param counter
      * @return
      */
+    @Override
     public Result<Boolean> insertCounter(Counter counter) {
         try {
-            Result<Boolean> result = new ResultSupport<>();
+
             if (null != counter) {
-                if (StringUtils.isNoneBlank(counter.getUserName(),counter.getUserPass())) {
-                    counter.setId(UUID.randomUUID().toString());
-                    boolean flag = counterDao.insertCounter(counter) > 0;
-                    result.setModel(flag);
-                    if (flag) {
-                        result.setMessage("新增柜员成功");
-                    } else {
-                        result.setMessage("新增柜员失败");
-                    }
-                } else {
-                    result.setModel(false);
-                    result.setMessage("新增柜员失败，柜员用户名或密码为空");
+                if (StringUtils.isAnyBlank(counter.getUserName(),counter.getUserPass())) {
+                    return new ResultSupport<>("data_error","新增柜员失败，柜员用户名或密码为空");
+                } else if (StringUtils.isAnyBlank(counter.getName(),counter.getIdCard(),counter.getPhone())) {
+                    return new ResultSupport<>("data_error","新增柜员失败，柜员姓名，身份证号，手机号均不能为空");
+                } else if (counter.getSex() != 1 && counter.getSex() != 2) {
+                    return new ResultSupport<>("data_error","新增柜员失败，柜员性别设置不正确");
+                } else if (counter.getLevel() <= -1) {
+                    return new ResultSupport<>("data_error","新增柜员失败，柜员权限级别设置不正确");
                 }
+
+                Result<Boolean> result = new ResultSupport<>();
+                counter.setId(UUID.randomUUID().toString());
+                boolean flag = counterDao.insertCounter(counter) > 0;
+                result.setModel(flag);
+                if (flag) {
+                    result.setResultCode("success");
+                    result.setMessage("新增柜员成功");
+                } else {
+                    result.setResultCode("failure");
+                    result.setMessage("新增柜员失败");
+                }
+                return result;
             } else {
-                result.setModel(false);
-                result.setMessage("新增柜员失败，参数为空");
+                return new ResultSupport<>("null_error","新增柜员失败，参数为空");
             }
-            return result;
         } catch (Exception e) {
-            return new ResultSupport<>(e.getMessage(),"新增失败，系统异常");
+            return new ResultSupport<>("system_exception",e.getMessage());
         }
     }
 
@@ -84,6 +99,7 @@ public class CounterService implements ICounterService {
      * @param counter
      * @return
      */
+    @Override
     public Result<Boolean> updateCounter(Counter counter) {
         try {
             Result<Boolean> result = new ResultSupport<>();
@@ -97,11 +113,12 @@ public class CounterService implements ICounterService {
                 }
             } else {
                 result.setModel(false);
+                result.setResultCode("null_error");
                 result.setMessage("更新柜员失败，参数为空");
             }
             return result;
         } catch (Exception e) {
-            return new ResultSupport<>(e.getMessage(),"更新失败，系统异常");
+            return new ResultSupport<>("system_exception",e.getMessage());
         }
     }
 }

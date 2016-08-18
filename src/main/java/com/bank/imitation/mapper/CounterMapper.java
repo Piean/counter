@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CounterMapper {
+    Counter getById(String id);
+
     Counter getByNameAndPass(@Param("name") String userName, @Param("pass") String userPass);
 
     int insertCounter(Counter counter);

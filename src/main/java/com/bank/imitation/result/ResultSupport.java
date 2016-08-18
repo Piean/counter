@@ -1,8 +1,5 @@
 package com.bank.imitation.result;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by mogu on 2016/8/16.
  */
@@ -14,8 +11,6 @@ public class ResultSupport<T> implements Result<T> {
     private String resultCode;
     private String message;
     private T model;
-
-    private List<T> models = new ArrayList<T>();
 
     public String getMessage() {
         return message;
@@ -70,14 +65,6 @@ public class ResultSupport<T> implements Result<T> {
 
     public void setResultCode(String resultCode) {
         this.resultCode = resultCode;
-    }
-
-    public List<T> getModels() {
-        return models;
-    }
-
-    public void setModels(List<T> models) {
-        this.models = models;
     }
 
     public void setModel(T model) {
