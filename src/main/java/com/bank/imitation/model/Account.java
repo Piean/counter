@@ -11,7 +11,6 @@ public class Account extends BaseModel {
     private String customerId;
     private String cardNumber;
     private String idCard;
-    private String accountPass;
     private String tradePass;
     private int accountType = 0;
     private String phone;
@@ -40,14 +39,6 @@ public class Account extends BaseModel {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
-    }
-
-    public String getAccountPass() {
-        return accountPass;
-    }
-
-    public void setAccountPass(String accountPass) {
-        this.accountPass = accountPass;
     }
 
     public String getTradePass() {

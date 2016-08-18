@@ -14,4 +14,12 @@ public interface IAccountService {
      * @return
      */
     Result<Boolean> openAccount(Account account);
+
+    /**
+     * 根据账户id更新余额，用于充值转账
+     * @param id
+     * @param balance
+     * @return
+     */
+    Result<Boolean> updateBalance(String id, int balance);
 }
