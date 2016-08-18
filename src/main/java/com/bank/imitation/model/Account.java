@@ -8,6 +8,7 @@ import java.math.BigInteger;
  * Created by mogu on 2016/8/16.
  */
 public class Account extends BaseModel {
+    private String customerId;
     private String cardNumber;
     private String idCard;
     private String accountPass;
@@ -16,6 +17,14 @@ public class Account extends BaseModel {
     private String phone;
     private BigInteger balance;
     private int credits;
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
 
     public String getCardNumber() {
         return cardNumber;

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bank.imitation.mapper.CustomerMapper">
+    <resultMap id="customerResultMap" type="com.bank.imitation.model.Customer">
+        <result column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_pass" property="userPass"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="birthday" property="birthday"/>
+        <result column="id_card" property="idCard"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="address" property="address"/>
+        <result column="op_time" property="opTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="last_ver" property="lastVer"/>
+        <result column="op_user" property="opUser"/>
+    </resultMap>
+
+    <select id="getById" resultMap="customerResultMap" parameterType="java.lang.String">
+        SELECT
+            customer.id,
+            customer.user_name,
+            customer.user_pass,
+            customer.name,
+            customer.sex,
+            customer.birthday,
+            customer.id_card,
+            customer.phone,
+            customer.email,
+            customer.address,
+            customer.op_time,
+            customer.create_time,
+            customer.is_valid,
+            customer.last_ver,
+            customer.op_user
+        FROM
+            customer
+        WHERE
+            customer.user_name = #{id} AND customer.is_valid = 1
+    </select>
+
+    <insert id="insertCustomer" parameterType="com.bank.imitation.model.Customer">
+        INSERT INTO counter
+          (
+            customer.id,
+            customer.user_name,
+            customer.user_pass,
+            customer.name,
+            customer.sex,
+            customer.birthday,
+            customer.id_card,
+            customer.phone,
+            customer.email,
+            customer.address,
+            customer.op_time,
+            customer.create_time,
+            customer.is_valid,
+            customer.last_ver,
+            customer.op_user
+          )
+        VALUES
+          (
+            #{id},
+            #{userName},
+            #{userPass},
+            #{name},
+            #{sex},
+            #{birthday},
+            #{idCard},
+            #{phone},
+            #{email},
+            #{address},
+            UNIX_TIMESTAMP(NOW()),
+            UNIX_TIMESTAMP(NOW()),
+            1,
+            0,
+            #{opUser}
+          )
+    </insert>
+
+    <update id="updateCustomer" parameterType="com.bank.imitation.model.Customer">
+        UPDATE counter SET
+        <if test="userName != null">
+            customer.user_name = #{userName},
+        </if>
+        <if test="userPass != null">
+            customer.user_pass = #{userPass},
+        </if>
+        <if test="name != null">
+            customer.name = #{name},
+        </if>
+        <if test="sex > 0">
+            customer.sex = #{sex},
+        </if>
+        <if test="birthday > 0">
+            customer.birthday = #{birthday},
+        </if>
+        <if test="idCard != null">
+            customer.id_card = #{idCard},
+        </if>
+        <if test="phone != null">
+            customer.phone = #{phone},
+        </if>
+        <if test="email != null">
+            customer.email = #{email},
+        </if>
+        <if test="address != null">
+            customer.address = #{address},
+        </if>
+        <if test="opUser != null">
+            customer.op_user = #{opUser},
+        </if>
+        customer.op_time = UNIX_TIMESTAMP(NOW()),
+        customer.last_ver = customer.last_ver + 1
+        WHERE customer.id = #{id} AND customer.is_valid = 1
+    </update>
+
+    <select id="queryCustomer" resultMap="customerResultMap" parameterType="com.bank.imitation.query.CustomerQuery">
+        SELECT
+            customer.id,
+            customer.user_name,
+            customer.user_pass,
+            customer.name,
+            customer.sex,
+            customer.birthday,
+            customer.id_card,
+            customer.phone,
+            customer.email,
+            customer.address,
+            customer.op_time,
+            customer.create_time,
+            customer.is_valid,
+            customer.last_ver,
+            customer.op_user
+        FROM
+            customer
+        <include refid="query"/>
+    </select>
+
+    <select id="countQueryCustomer" resultType="java.lang.Integer" parameterType="com.bank.imitation.query.CustomerQuery">
+        SELECT
+            COUNT(1)
+        FROM
+            customer
+        <include refid="query"/>
+    </select>
+
+    <sql id="query">
+        WHERE
+        customer.is_valid = 1
+            <if test="phone != null">
+                AND customer.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="idCard != null">
+                AND customer.id_card LIKE CONCAT('%',#{idCard},'%')
+            </if>
+            <if test="name != null">
+                AND customer.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="email != null">
+                AND customer.email LIKE CONCAT('%',#{email},'%')
+            </if>
+    </sql>
+</mapper>

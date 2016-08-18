@@ -16,9 +16,10 @@
         <result column="create_time" property="createTime"/>
         <result column="is_valid" property="isValid"/>
         <result column="last_ver" property="lastVer"/>
+        <result column="op_user" property="opUser"/>
     </resultMap>
 
-    <select id="getById" resultMap="counterResultMap" parameterType="String">
+    <select id="getById" resultMap="counterResultMap" parameterType="java.lang.String">
         SELECT
             counter.id,
             counter.user_name,
@@ -33,7 +34,8 @@
             counter.op_time,
             counter.create_time,
             counter.is_valid,
-            counter.last_ver
+            counter.last_ver,
+            counter.op_user
         FROM
             counter
         WHERE
@@ -41,7 +43,7 @@
         LIMIT 1
     </select>
 
-    <select id="getByNameAndPass" resultMap="counterResultMap" parameterType="map">
+    <select id="getByNameAndPass" resultMap="counterResultMap" parameterType="java.util.Map">
         SELECT
             counter.id,
             counter.user_name,
@@ -56,7 +58,8 @@
             counter.op_time,
             counter.create_time,
             counter.is_valid,
-            counter.last_ver
+            counter.last_ver,
+            counter.op_user
         FROM
             counter
         WHERE
@@ -80,7 +83,8 @@
             counter.op_time,
             counter.create_time,
             counter.is_valid,
-            counter.last_ver
+            counter.last_ver,
+            counter.op_user
           )
         VALUES
           (
@@ -97,7 +101,8 @@
             UNIX_TIMESTAMP(NOW()),
             UNIX_TIMESTAMP(NOW()),
             1,
-            0
+            0,
+            #{opUser}
           )
     </insert>
 
@@ -130,6 +135,9 @@
             <if test="level > -1">
                 counter.level = #{level},
             </if>
+            <if test="opUser != null">
+                counter.op_user = #{opUser},
+            </if>
             counter.op_time = UNIX_TIMESTAMP(NOW()),
             counter.last_ver = counter.last_ver + 1
         WHERE counter.id = #{id} AND counter.is_valid = 1
@@ -150,14 +158,15 @@
             counter.op_time,
             counter.create_time,
             counter.is_valid,
-            counter.last_ver
+            counter.last_ver,
+            counter.op_user
         FROM
             counter
         <include refid="queryCounterConditions"/>
         LIMIT #{startPos},#{pageSize}
     </select>
 
-    <select id="countQueryCounter" resultType="Integer" parameterType="com.bank.imitation.query.CounterQuery">
+    <select id="countQueryCounter" resultType="java.lang.Integer" parameterType="com.bank.imitation.query.CounterQuery">
         SELECT
             COUNT(1)
         FROM

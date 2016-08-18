@@ -11,6 +11,7 @@ public class BaseModel{
     private int createTime;
     private int isValid;
     private int lastVer;
+    private String opUser;
 
     public String getId() {
         return id;
@@ -50,5 +51,13 @@ public class BaseModel{
 
     public void setLastVer(int lastVer) {
         this.lastVer = lastVer;
+    }
+
+    public String getOpUser() {
+        return opUser;
+    }
+
+    public void setOpUser(String opUser) {
+        this.opUser = opUser;
     }
 }

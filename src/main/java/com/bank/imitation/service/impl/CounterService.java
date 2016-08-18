@@ -24,11 +24,13 @@ public class CounterService implements ICounterService {
     @Override
     public Result<Counter> getById(String id) {
         try {
-            Result<Counter> result = new ResultSupport<>();
             if (StringUtils.isNotBlank(id)) {
+                Result<Counter> result = new ResultSupport<>();
                 result.setModel(counterDao.getById(id));
+                return result;
+            } else {
+                return new ResultSupport<>("id_error","ID不能为空");
             }
-            return result;
         } catch (Exception e) {
             return new ResultSupport<>("system_exception",e.getMessage());
         }
@@ -104,21 +106,20 @@ public class CounterService implements ICounterService {
     @Override
     public Result<Boolean> updateCounter(Counter counter) {
         try {
-            Result<Boolean> result = new ResultSupport<>();
             if (null != counter) {
+                Result<Boolean> result = new ResultSupport<>();
                 boolean flag = counterDao.updateCounter(counter) > 0;
                 result.setModel(flag);
                 if (flag) {
-                    result.setMessage("更新柜员成功");
+                    result.setMessage("更新柜员信息成功");
                 } else {
-                    result.setMessage("更新柜员失败");
+                    result.setMessage("更新柜员信息失败");
                 }
+                return result;
             } else {
-                result.setModel(false);
-                result.setResultCode("null_error");
-                result.setMessage("更新柜员失败，参数为空");
+                return new ResultSupport<>("null_error","更新柜员信息失败，参数为空");
             }
-            return result;
+
         } catch (Exception e) {
             return new ResultSupport<>("system_exception",e.getMessage());
         }
@@ -133,9 +134,13 @@ public class CounterService implements ICounterService {
     @Override
     public Result<List<Counter>> queryCounter(CounterQuery query) {
         try {
-            Result<List<Counter>> result = new ResultSupport<>();
-            result.setModel(counterDao.queryCounter(query));
-            return result;
+            if (null != query) {
+                Result<List<Counter>> result = new ResultSupport<>();
+                result.setModel(counterDao.queryCounter(query));
+                return result;
+            } else {
+                return new ResultSupport<>("null_error","查询失败，参数为空");
+            }
         } catch (Exception e) {
             return new ResultSupport<>("system_exception",e.getMessage());
         }
