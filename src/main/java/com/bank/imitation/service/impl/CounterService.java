@@ -2,6 +2,7 @@ package com.bank.imitation.service.impl;
 
 import com.bank.imitation.dao.ICounterDao;
 import com.bank.imitation.model.Counter;
+import com.bank.imitation.query.CounterQuery;
 import com.bank.imitation.result.Result;
 import com.bank.imitation.result.ResultSupport;
 import com.bank.imitation.service.ICounterService;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -116,6 +118,23 @@ public class CounterService implements ICounterService {
                 result.setResultCode("null_error");
                 result.setMessage("更新柜员失败，参数为空");
             }
+            return result;
+        } catch (Exception e) {
+            return new ResultSupport<>("system_exception",e.getMessage());
+        }
+    }
+
+    /**
+     * 根据条件，分页查询柜员信息
+     *
+     * @param query
+     * @return
+     */
+    @Override
+    public Result<List<Counter>> queryCounter(CounterQuery query) {
+        try {
+            Result<List<Counter>> result = new ResultSupport<>();
+            result.setModel(counterDao.queryCounter(query));
             return result;
         } catch (Exception e) {
             return new ResultSupport<>("system_exception",e.getMessage());

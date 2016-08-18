@@ -1,4 +1,5 @@
 import com.bank.imitation.model.Counter;
+import com.bank.imitation.query.CounterQuery;
 import com.bank.imitation.result.Result;
 import com.bank.imitation.service.ICounterService;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by mogu on 2016/8/15.
@@ -34,6 +36,13 @@ public class CounterServiceTest {
         counter.setPhone("15397222925");
         counter.setLevel(1);
         Result<Boolean> result = counterService.insertCounter(counter);
+        System.out.println(result.getModel());
+    }
+
+    @Test
+    public void testQueryCounter() {
+        CounterQuery query = new CounterQuery();
+        Result<List<Counter>> result = counterService.queryCounter(query);
         System.out.println(result.getModel());
     }
 }

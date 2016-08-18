@@ -134,4 +134,51 @@
             counter.last_ver = counter.last_ver + 1
         WHERE counter.id = #{id} AND counter.is_valid = 1
     </update>
+
+    <select id="queryCounter" resultMap="counterResultMap" parameterType="com.bank.imitation.query.CounterQuery">
+        SELECT
+            counter.id,
+            counter.user_name,
+            counter.user_pass,
+            counter.name,
+            counter.sex,
+            counter.id_card,
+            counter.phone,
+            counter.last_login_time,
+            counter.last_leave_time,
+            counter.level,
+            counter.op_time,
+            counter.create_time,
+            counter.is_valid,
+            counter.last_ver
+        FROM
+            counter
+        <include refid="queryCounterConditions"/>
+        LIMIT #{startPos},#{pageSize}
+    </select>
+
+    <select id="countQueryCounter" resultType="Integer" parameterType="com.bank.imitation.query.CounterQuery">
+        SELECT
+            COUNT(1)
+        FROM
+            counter
+        <include refid="queryCounterConditions"/>
+    </select>
+    
+    <sql id="queryCounterConditions">
+        WHERE 
+            counter.is_valid = 1
+            <if test="userName != null">
+                AND counter.user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="phone != null">
+                AND counter.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test="idCard != null">
+                AND counter.id_card LIKE CONCAT('%',#{idCard},'%')
+            </if>
+            <if test="name != null">
+                AND counter.name LIKE CONCAT('%',#{name},'%')
+            </if>
+    </sql>
 </mapper>

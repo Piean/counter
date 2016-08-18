@@ -1,7 +1,10 @@
 package com.bank.imitation.service;
 
 import com.bank.imitation.model.Counter;
+import com.bank.imitation.query.CounterQuery;
 import com.bank.imitation.result.Result;
+
+import java.util.List;
 
 /**
  * Created by mogu on 2016/8/15.
@@ -36,4 +39,11 @@ public interface ICounterService {
      * @return
      */
     Result<Boolean> updateCounter(Counter counter);
+
+    /**
+     * 根据条件，分页查询柜员信息
+     * @param query
+     * @return
+     */
+    Result<List<Counter>> queryCounter(CounterQuery query);
 }
