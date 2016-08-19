@@ -137,7 +137,7 @@
             customer.op_user
         FROM
             customer
-        <include refid="query"/>
+        <include refid="customerQuery"/>
     </select>
 
     <select id="countQueryCustomer" resultType="java.lang.Integer" parameterType="com.bank.imitation.query.CustomerQuery">
@@ -145,12 +145,12 @@
             COUNT(1)
         FROM
             customer
-        <include refid="query"/>
+        <include refid="customerQuery"/>
     </select>
 
-    <sql id="query">
+    <sql id="customerQuery">
         WHERE
-        customer.is_valid = 1
+            customer.is_valid = 1
             <if test="phone != null">
                 AND customer.phone LIKE CONCAT('%',#{phone},'%')
             </if>

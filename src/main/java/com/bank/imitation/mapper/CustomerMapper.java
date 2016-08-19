@@ -19,5 +19,5 @@ public interface CustomerMapper {
 
     List<Customer> queryCustomer(CustomerQuery query);
 
-    Integer countQueryCustomer(CustomerQuery query);
+    int countQueryCustomer(CustomerQuery query);
 }

@@ -22,5 +22,5 @@ public interface CounterMapper {
 
     List<Counter> queryCounter(CounterQuery query);
 
-    Integer countQueryCounter(CounterQuery query);
+    int countQueryCounter(CounterQuery query);
 }

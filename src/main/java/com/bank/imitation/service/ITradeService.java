@@ -1,6 +1,7 @@
 package com.bank.imitation.service;
 
 import com.bank.imitation.model.Trade;
+import com.bank.imitation.query.TradeQuery;
 import com.bank.imitation.result.Result;
 
 import java.util.List;
@@ -17,5 +18,10 @@ public interface ITradeService {
      */
     Result<Boolean> insertTrade(Trade trade);
 
-    Result<List<Trade>> queryTrade();
+    /**
+     * 条件查询交易流水
+     * @param query
+     * @return
+     */
+    Result<List<Trade>> queryTrade(TradeQuery query);
 }

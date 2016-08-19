@@ -38,4 +38,42 @@
             #{opUser}
           )
     </insert>
+
+    <select id="queryTrade" resultMap="tradeResultMap" parameterType="com.bank.imitation.query.TradeQuery">
+        SELECT
+            trade.id,
+            trade.out_account,
+            trade.in_account,
+            trade.trade_amount,
+            trade.op_time,
+            trade.create_time,
+            trade.is_valid,
+            trade.last_ver,
+            trade.op_user
+        FROM
+	        trade
+	    <include refid="tradeQuery"/>
+    </select>
+
+    <select id="countQueryTrade" resultType="int" parameterType="com.bank.imitation.query.TradeQuery">
+        SELECT
+            COUNT(1)
+        FROM
+            trade
+        <include refid="tradeQuery"/>
+    </select>
+
+    <sql id="tradeQuery">
+        WHERE
+            trade.is_valid = 1
+            <if test="accountId != null">
+                AND (trade.out_account = #{accountId} OR trade.in_account = #{accountId})
+            </if>
+            <if test="startDate > 0">
+                AND trade.create_time &gt;= #{startDate}
+            </if>
+            <if test="endDate > 0">
+                AND trade.create_time &lt;= #{endDate}
+            </if>
+    </sql>
 </mapper>

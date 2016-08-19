@@ -162,7 +162,7 @@
             counter.op_user
         FROM
             counter
-        <include refid="queryCounterConditions"/>
+        <include refid="counterQuery"/>
         LIMIT #{startPos},#{pageSize}
     </select>
 
@@ -171,10 +171,10 @@
             COUNT(1)
         FROM
             counter
-        <include refid="queryCounterConditions"/>
+        <include refid="counterQuery"/>
     </select>
     
-    <sql id="queryCounterConditions">
+    <sql id="counterQuery">
         WHERE 
             counter.is_valid = 1
             <if test="userName != null">
