@@ -12,4 +12,6 @@ public interface AccountMapper {
     int openAccount(Account account);
 
     int updateBalance(@Param("id") String id, @Param("balance") int balance);
+
+    Account getById(String id);
 }

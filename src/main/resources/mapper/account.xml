@@ -61,4 +61,26 @@
         WHERE
             account.id = #{id} AND account.is_valid = 1
     </update>
+    
+    <select id="getById" resultMap="accountResultMap" parameterType="java.lang.String">
+        SELECT
+            account.id,
+            account.customer_id,
+            account.card_number,
+            account.id_card,
+            account.trade_pass,
+            account.account_type,
+            account.phone,
+            account.balance,
+            account.credits,
+            account.op_time,
+            account.create_time,
+            account.is_valid,
+            account.last_ver,
+            account.op_user
+        FROM
+            account
+        WHERE
+            account.id = #{id} AND account.is_valid = 1
+    </select>
 </mapper>

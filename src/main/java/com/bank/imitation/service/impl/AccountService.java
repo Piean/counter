@@ -55,7 +55,7 @@ public class AccountService implements IAccountService {
     }
 
     /**
-     * 根据账户id更新余额，用于充值转账
+     * 根据账户id更新余额，用于充值/提现
      *
      * @param id
      * @param balance

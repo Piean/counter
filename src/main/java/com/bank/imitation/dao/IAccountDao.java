@@ -8,5 +8,5 @@ import com.bank.imitation.model.Account;
 public interface IAccountDao {
     int openAccount(Account account);
 
-    int updateBalance(String id, int balance);
+    int updateBalance(String id, int amount);
 }
