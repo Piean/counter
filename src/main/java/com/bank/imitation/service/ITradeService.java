@@ -17,5 +17,5 @@ public interface ITradeService {
      */
     Result<Boolean> insertTrade(Trade trade);
 
-    Result<List<Trade>> queryTrade()
+    Result<List<Trade>> queryTrade();
 }
