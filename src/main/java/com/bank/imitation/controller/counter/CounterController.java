@@ -1,6 +1,8 @@
 package com.bank.imitation.controller.counter;
 
+import com.alibaba.fastjson.JSON;
 import com.bank.imitation.model.Counter;
+import com.bank.imitation.query.CounterQuery;
 import com.bank.imitation.result.Result;
 import com.bank.imitation.service.ICounterService;
 import org.apache.commons.collections.map.HashedMap;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -118,19 +121,15 @@ public class CounterController {
 
     @ResponseBody
     @RequestMapping("change_info")
-    public Map changeInfo(Counter counter) {
-        Map map = new HashedMap();
-
+    public String changeInfo(Counter counter) {
         Result<Boolean> result = counterService.updateCounter(counter);
-
-        if (result.isSuccess() && result.getModel()) {
-            map.put("message","修改信息成功");
-        } else {
-            map.put("message","修改信息失败");
-        }
-
-        return map;
+        return JSON.toJSONString(result);
     }
 
-
+    @ResponseBody
+    @RequestMapping("query_list")
+    public String queryCounterList(CounterQuery query) {
+        Result<List<Counter>> result = counterService.queryCounter(query);
+        return JSON.toJSONString(result);
+    }
 }

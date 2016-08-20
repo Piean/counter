@@ -7,6 +7,7 @@ import com.bank.imitation.result.Result;
 import com.bank.imitation.result.ResultSupport;
 import com.bank.imitation.service.ITradeService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.UUID;
 /**
  * Created by mogu on 2016/8/18.
  */
+@Service
 public class TradeService implements ITradeService {
 
     @Resource
