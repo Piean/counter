@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface AccountMapper {
     int openAccount(Account account);
 
-    int updateBalance(@Param("id") String id, @Param("balance") int balance);
+    int updateBalance(@Param("id") String id, @Param("amount") int amount);
 
     Account getById(String id);
 }

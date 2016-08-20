@@ -17,9 +17,10 @@ public interface IAccountService {
 
     /**
      * 根据账户id更新余额，用于充值转账
-     * @param id
-     * @param balance
+     * @param outId 交易金额支出账户id
+     * @param inId 交易金额流入账户id
+     * @param amount 该笔交易金额
      * @return
      */
-    Result<Boolean> updateBalance(String id, int balance);
+    Result<Boolean> amountTrade(String outId, String inId, int amount);
 }

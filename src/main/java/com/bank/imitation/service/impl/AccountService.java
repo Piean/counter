@@ -54,15 +54,29 @@ public class AccountService implements IAccountService {
         }
     }
 
-    /**
-     * 根据账户id更新余额，用于充值/提现
-     *
-     * @param id
-     * @param balance
-     * @return
-     */
     @Override
-    public Result<Boolean> updateBalance(String id, int balance) {
-        return null;
+    public Result<Boolean> amountTrade(String outId, String inId, int amount) {
+        try {
+            if (StringUtils.isNotBlank(outId) || StringUtils.isNotBlank(inId)) {
+                if (0 == amount) {
+                    return new ResultSupport<>("amount_error","交易金额为0，无效交易");
+                }
+
+                Result<Boolean> result = new ResultSupport<>();
+                boolean flag = accountDao.amountTrade(outId,inId,amount) > 0;
+                result.setModel(flag);
+                if (flag) {
+                    result.setMessage("交易成功");
+                } else {
+                    result.setMessage("交易失败");
+                }
+                return result;
+            } else {
+                return new ResultSupport<>("account_error","进出账户皆为空，无效交易");
+            }
+        } catch (Exception e) {
+            return new ResultSupport<>("system_exception",e.getMessage());
+        }
     }
+
 }

@@ -57,7 +57,7 @@
 
     <update id="updateBalance" parameterType="int">
         UPDATE account SET
-            account.balance = #{balance}
+            account.balance = account.balance + #{amount}
         WHERE
             account.id = #{id} AND account.is_valid = 1
     </update>
