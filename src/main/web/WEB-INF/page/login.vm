@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
 </head>
 <body>
-<center><h2>这是登录页</h2></center>
+<center>
+    <h2>这是登录页</h2>
+    <form action="/counter/login.do" method="post">
+        用户名：<input name="userName"/>
+        密&nbsp;&nbsp;码：<input name="userPass"/>
+        <br/>
+        <input type="submit" value="登录"/>
+    </form>
+</center>
 
 <center><h1>$!{message}</h1></center>
 </body>

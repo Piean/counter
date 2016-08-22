@@ -37,21 +37,21 @@ public class CounterController {
         if (null == counter) {
             if (StringUtils.isNoneBlank(userName, userPass)) {
                 Result<Counter> result = counterService.getByNameAndPass(userName, userPass);
-                if (result.isSuccess() && result.getModel() != null) {
-                    counter = result.getModel();
-                    counter.setLastLoginTime((int) (System.currentTimeMillis()/1000));
-                    Result<Boolean> result1 = counterService.updateCounter(counter);
-                    if (result1.isSuccess() && result1.getModel()) {
+                if (result.isSuccess()) {
+                    if (result.getModel() != null) {
+                        counter = result.getModel();
+                        counter.setLastLoginTime((int) (System.currentTimeMillis()/1000));
+                        counterService.updateCounter(counter);
                         session.setAttribute(session.getId(),counter);
                         model.addAttribute("message", "登录成功");
                         model.addAttribute(counter);
                         return "index";
                     } else {
-                        model.addAttribute("message", "登录失败");
+                        model.addAttribute("message", "登录失败，用户名或密码错误");
                         return "login";
                     }
                 } else {
-                    model.addAttribute("message", "登录失败，用户名或密码错误");
+                    model.addAttribute("message", "登录失败，" + result.getResultCode());
                     return "login";
                 }
             } else {
