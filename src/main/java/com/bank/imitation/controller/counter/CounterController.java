@@ -27,8 +27,8 @@ public class CounterController {
     private ICounterService counterService;
 
     @RequestMapping("/index")
-    public String goIndex(String userName, String userPass) {
-        return "login.html";
+    public String goIndex() {
+        return "login";
     }
 
     @RequestMapping("/login")
@@ -38,13 +38,13 @@ public class CounterController {
             if (StringUtils.isNoneBlank(userName, userPass)) {
                 Result<Counter> result = counterService.getByNameAndPass(userName, userPass);
                 if (result.isSuccess() && result.getModel() != null) {
-                    Counter counterResult = result.getModel();
-                    counterResult.setLastLoginTime((int) (System.currentTimeMillis()/1000));
-                    Result<Boolean> result1 = counterService.updateCounter(counterResult);
+                    counter = result.getModel();
+                    counter.setLastLoginTime((int) (System.currentTimeMillis()/1000));
+                    Result<Boolean> result1 = counterService.updateCounter(counter);
                     if (result1.isSuccess() && result1.getModel()) {
-                        session.setAttribute(session.getId(),counterResult);
+                        session.setAttribute(session.getId(),counter);
                         model.addAttribute("message", "登录成功");
-                        model.addAttribute(counterResult);
+                        model.addAttribute(counter);
                         return "index";
                     } else {
                         model.addAttribute("message", "登录失败");
@@ -59,6 +59,7 @@ public class CounterController {
                 return "login";
             }
         } else {
+            session.setAttribute(session.getId(),counter);
             model.addAttribute("message", "登录成功");
             model.addAttribute(counter);
             return "index";
@@ -66,22 +67,13 @@ public class CounterController {
     }
 
     @RequestMapping("login_out")
-    public String counterLoginOut(HttpSession session, String id) {
+    public String counterLoginOut(HttpSession session) {
         Counter counter = (Counter) session.getAttribute(session.getId());
-
-        if (null == counter) {
-            Result<Counter> result = counterService.getById(id);
-            if (result.isSuccess() && result.getModel() != null) {
-                counter = result.getModel();
-                counter.setLastLeaveTime(counter.getLastLoginTime() + session.getMaxInactiveInterval());
-                counterService.updateCounter(counter);
-            }
-        } else {
-            counter.setLastLeaveTime((int) (System.currentTimeMillis()/1000));
+        if (counter != null) {
+            counter.setLastLeaveTime((int) (System.currentTimeMillis() / 1000));
             counterService.updateCounter(counter);
+            session.removeAttribute(session.getId());
         }
-
-        session.removeAttribute(session.getId());
         return "login";
     }
 
