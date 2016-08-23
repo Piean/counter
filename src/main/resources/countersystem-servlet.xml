@@ -70,7 +70,8 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/counter/login.do"/>
-            <mvc:exclude-mapping path="/counter/index.do"/>
+            <mvc:exclude-mapping path="/counter/login_out.do"/>
+            <mvc:exclude-mapping path="/kaptcha/code_image.do"/>
             <bean class="com.bank.imitation.interceptor.SessionInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

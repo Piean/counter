@@ -1,0 +1,184 @@
+@charset "utf-8";/* CSS Document */
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img, dl, dt, dd, table, th, td, blockquote, fieldset, div, strong, label, em {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+ul {
+    list-style: none;
+}
+body {
+    font-size: 10px;
+    background: #F2F2F2;
+    font-family: Helvetica, Tahoma, Arial, \5FAE\8F6F\96C5\9ED1, \534E\6587\7EC6\9ED1, sans-serif;
+}
+textarea, input, a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+input[type="text"],
+input[type="submit"],
+input[type="button"],
+textarea {
+    -webkit-appearance: none;
+}
+
+
+.bank-container{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.bank-nav{
+    display: block;
+    position: relative;
+    height: 150px;
+    width: 100%;
+}
+.logo{
+    background: url("../img/cn_login_logo.png");
+    background-size: cover;
+    width: 471px;
+    height: 135px;
+    position: absolute;
+    left: 150px;
+    top: 10px;
+}
+.bank-main{
+    display: block;
+    position: relative;
+    width: 100%;
+    background: url("../img/bannerlogin.png");
+    background-size: cover;
+    height: 374px;
+}
+.bank-foot{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 65px;
+    color: #a4a3a3;
+    line-height: 30px;
+    margin: 30px auto auto;
+    font-size: 12px;
+    text-align: center;
+}
+.login-shop{
+    display: block;
+    position: relative;
+    width: 320px;
+    height: 330px;
+    float: right;
+    margin: 20px 25px 0 0;
+    background: url(../img/loginbg.png);
+}
+.tel-icon,
+.password-icon{
+    display: block;
+    height: 39px;
+    width: 260px;
+    margin-left: 30px;
+}
+.tel-icon{
+    background: url(../img/user_icon.png) no-repeat;
+}
+.password-icon{
+    background: url(../img/psw_icon.png) no-repeat;
+}
+.auth-code-icon{
+    background: url(../img/yzm_icon.png) no-repeat;
+    display: block;
+    height: 39px;
+    width: 224px;
+    padding-left: 35px;
+}
+.login-shop div{
+    line-height: 35px;
+    color: #fff;
+}
+.bank-list{
+    line-height: 32px;
+    color: #fff;
+    margin-top: 20px;
+}
+.bank-list input{
+    width: 215px;
+    height: 35px;
+    line-height: 35px;
+    display: block;
+    padding: 2px 2px 2px 12px;
+    background-color: #fff;
+    font-size: 16px;
+    float: right;
+    resize: none;
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    -webkit-appearance: none;
+    border: 1px #999999;
+    border-bottom-color: #D8D8D8;
+    border-right-color: #D8D8D8;
+    background: #fff;
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;
+    top: -39px;
+    left: -22px;
+}
+.padding-top{
+    padding-top: 25px;
+}
+.tel-icon{
+    background: url(../img/user_icon.png) no-repeat;
+    display: block;
+    height: 39px;
+    width: 260px;
+    margin-left: 30px;
+}
+.auth-code{
+    width: 261px;
+    line-height: 32px;
+    padding-top: 10px;
+    margin:20px auto;
+}
+.auth-code-input{
+    width: 130px;
+    height: 35px;
+    line-height: 35px;
+    display: block;
+    margin: auto;
+    padding: 2px 2px 2px 12px;
+    font-size: 16px;
+    float: left;
+    resize: none;
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    -webkit-appearance: none;
+    border: 1px #999999;
+    border-right-color: #D8D8D8;
+    background: #fff;
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;
+    top: -9px;
+    left: 4px;
+}
+.auth-code-img{
+    width: 80px;
+    height: 39px;
+    position: relative;
+    left: 9px;
+    top: -9px;
+}
+.login-btn{
+    width: 258px;
+    line-height: 38px;
+    background: #22afff;
+    margin: 15px auto;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    /*font-weight: bolder;*/
+}

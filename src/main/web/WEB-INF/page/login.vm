@@ -1,22 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/public.css">
+    <title>银行系统</title>
 </head>
-<body>
-<center>
-    <h2>这是登录页</h2>
-    <form action="/counter/login.do" method="post">
-        用户名：<input name="userName"/>
-        密&nbsp;&nbsp;码：<input name="userPass"/>
-        <br/>
-        <input type="submit" value="登录"/>
-    </form>
-</center>
+<body class="bank-backg">
+<div class="bank-container">
+    <div class="bank-nav">
+        <div class="logo"></div>
+    </div>
+    <div class="bank-main">
+        <form action="/counter/index.do" method="post">
+            <div class="login-shop">
+                <div class="bank-list padding-top">
+                    <div class="tel-icon icon-site"></div>
+                    <input type="tel" name="userName" placeholder="用户名"/>
+                </div>
+                <div class="bank-list">
+                    <div class="password-icon icon-site"></div>
+                    <input type="password" name="userPass" placeholder="密码"/>
+                </div>
+                <div class="auth-code">
+                    <div class="auth-code-icon">
+                        <input class="auth-code-input" name="code" type="text" placeholder="验证码"/>
+                        <a href="#"><img class="auth-code-img" src="/kaptcha/code_image.do" id="kaptcha_img"/></a>
+                    </div>
+                </div>
+                <p>$!{message}</p>
+                <button type="submit" class="login-btn">登录</button>
+            </div>
+        </form>
+    </div>
+    <div class="bank-foot">
+        <p>Copyright@2016.8.23 CNOLNTC.COM Tnc.All Rights Reserved</p>
+    </div>
+</div>
 
-<center><h1>$!{message}</h1></center>
 </body>
-
 <script src="/resources/js/jquery-3.1.0.min.js" language="JavaScript"></script>
+<script src="/resources/js/countersys.js" language="JavaScript"></script>
 </html>

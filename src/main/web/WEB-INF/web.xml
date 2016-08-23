@@ -49,6 +49,15 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>kaptcha</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>kaptcha</servlet-name>
+        <url-pattern>/code_image.do</url-pattern>
+    </servlet-mapping>
+
     <!-- 配置session超时时间，单位分 -->
     <session-config>
         <session-timeout>30</session-timeout>

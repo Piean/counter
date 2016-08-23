@@ -29,6 +29,8 @@
         <commons-validator.version>1.5.1</commons-validator.version>
         <commons-beanutils.version>1.9.2</commons-beanutils.version>
         <commons-collections.version>3.2.2</commons-collections.version>
+
+        <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
 
     <dependencies>
@@ -255,6 +257,12 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>${commons-collections.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha.version}</version>
         </dependency>
     </dependencies>
 

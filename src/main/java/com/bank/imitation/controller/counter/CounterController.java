@@ -26,43 +26,53 @@ public class CounterController {
     @Resource
     private ICounterService counterService;
 
-    @RequestMapping("/index")
-    public String goIndex() {
+    @RequestMapping("/login")
+    public String goLoginPage() {
         return "login";
     }
 
-    @RequestMapping("/login")
-    public String counterLogin(Model model, String userName, String userPass, HttpSession session) {
-        Counter counter = (Counter) session.getAttribute(session.getId());
-        if (null == counter) {
-            if (StringUtils.isNoneBlank(userName, userPass)) {
-                Result<Counter> result = counterService.getByNameAndPass(userName, userPass);
-                if (result.isSuccess()) {
-                    if (result.getModel() != null) {
-                        counter = result.getModel();
-                        counter.setLastLoginTime((int) (System.currentTimeMillis()/1000));
-                        counterService.updateCounter(counter);
-                        session.setAttribute(session.getId(),counter);
-                        model.addAttribute("message", "登录成功");
-                        model.addAttribute(counter);
-                        return "index";
-                    } else {
-                        model.addAttribute("message", "登录失败，用户名或密码错误");
-                        return "login";
-                    }
+    @RequestMapping("/index")
+    public String counterLogin(Model model, String userName, String userPass, String code, HttpSession session) {
+        Counter counter;
+        if (StringUtils.isNoneBlank(userName, userPass)) {
+            //获取验证码进行校验
+            String kaptcha = (String) session.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+            if (!StringUtils.equals(code,kaptcha)) {
+                model.addAttribute("message", "验证码不正确");
+                return "login";
+            }
+
+            Result<Counter> result = counterService.getByNameAndPass(userName, userPass);
+            if (result.isSuccess()) {
+                if (result.getModel() != null) {
+                    counter = result.getModel();
+                    counter.setLastLoginTime((int) (System.currentTimeMillis()/1000));
+                    counterService.updateCounter(counter);
+                    session.setAttribute(session.getId(),counter);
+                    model.addAttribute("message", "登录成功");
+                    model.addAttribute(counter);
+                    return "index";
                 } else {
-                    model.addAttribute("message", "登录失败，" + result.getResultCode());
+                    model.addAttribute("message", "登录失败，用户名或密码错误");
                     return "login";
                 }
             } else {
-                model.addAttribute("message", "登录失败，用户名或密码为空");
+                model.addAttribute("message", "登录失败，" + result.getResultCode());
+                return "login";
+            }
+        } else if (!StringUtils.isNoneBlank(userName, userPass)){
+            counter = (Counter) session.getAttribute(session.getId());
+            if (null != counter) {
+                session.setAttribute(session.getId(),counter);
+                model.addAttribute("message", "登录成功");
+                model.addAttribute(counter);
+                return "index";
+            } else {
                 return "login";
             }
         } else {
-            session.setAttribute(session.getId(),counter);
-            model.addAttribute("message", "登录成功");
-            model.addAttribute(counter);
-            return "index";
+            model.addAttribute("message", "登录失败，用户名或密码为空");
+            return "login";
         }
     }
 

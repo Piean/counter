@@ -21,7 +21,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String userId =  httpServletRequest.getSession().getId();
         if (StringUtils.isBlank(userId)) {
-            httpServletResponse.sendRedirect("/counter/index.do");
+            httpServletResponse.sendRedirect("/counter/login.do");
             return false;
         } else {
             return true;
@@ -36,7 +36,9 @@ public class SessionInterceptor implements HandlerInterceptor {
         HttpSession session = httpServletRequest.getSession();
         Counter counter = (Counter) session.getAttribute(session.getId());
 
-        counter.setLastLeaveTime((int) (System.currentTimeMillis()/1000) + session.getMaxInactiveInterval());
-        counterService.updateCounter(counter);
+        if (null != counter) {
+            counter.setLastLeaveTime((int) (System.currentTimeMillis()/1000) + session.getMaxInactiveInterval());
+            counterService.updateCounter(counter);
+        }
     }
 }
